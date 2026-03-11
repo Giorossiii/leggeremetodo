@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leggere Método — O Guia Completo de Finanças Pessoais</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #0F1117;
+    --surf:  #1A1D27;
+    --surf2: #232736;
+    --cream: #F5F0E8;
+    --gold:  #C9A84C;
+    --clay:  #B07C5A;
+    --green: #5CB87A;
+    --sage:  #7A9E7E;
+    --red:   #E05C5C;
+    --muted: #6B7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,17,23,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--surf2);
+    padding: 14px 0;
+  }
+  .nav-inner {
+    max-width: 700px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: var(--cream); font-weight: 700;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--clay));
+    color: var(--bg); font-size: 12px; font-weight: 600;
+    padding: 8px 18px; border-radius: 8px; text-decoration: none;
+    letter-spacing: 0.3px; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* HERO */
+  .hero {
+    padding: 72px 0 52px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; color: var(--clay); text-transform: uppercase;
+    background: rgba(176,124,90,0.08); border: 1px solid rgba(176,124,90,0.2);
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    line-height: 1.1; margin-bottom: 20px;
+    animation: fadeDown 0.7s ease 0.1s both;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; display: block; }
+  .hero-sub {
+    font-size: 17px; line-height: 1.7; color: var(--muted);
+    max-width: 520px; margin: 0 auto 36px;
+    animation: fadeDown 0.7s ease 0.2s both;
+  }
+
+  /* BOOK VISUAL */
+  .book-wrap {
+    display: flex; justify-content: center;
+    margin: 0 auto 52px; position: relative;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .book {
+    width: 180px; height: 240px; position: relative;
+    filter: drop-shadow(0 24px 48px rgba(0,0,0,0.6));
+  }
+  .book-cover {
+    width: 100%; height: 100%;
+    background: var(--surf);
+    border-radius: 3px 8px 8px 3px;
+    border: 1px solid rgba(201,168,76,0.25);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .book-cover::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
+    background: linear-gradient(135deg, var(--clay), var(--gold));
+    border-radius: 3px 0 0 3px;
+  }
+  .book-cover::after {
+    content: '';
+    position: absolute; top: 18px; left: 28px; right: 18px; height: 1px;
+    background: rgba(201,168,76,0.4);
+  }
+  .book-inner {
+    padding: 0 18px 0 30px;
+    text-align: center; width: 100%;
+  }
+  .book-label {
+    font-family: 'DM Mono', monospace; font-size: 8px;
+    letter-spacing: 3px; color: var(--muted); margin-bottom: 8px;
+  }
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900; color: var(--cream);
+    line-height: 1.1; margin-bottom: 10px;
+  }
+  .book-divider {
+    width: 40px; height: 1px;
+    background: var(--gold); margin: 8px auto; opacity: 0.5;
+  }
+  .book-icons { font-size: 14px; letter-spacing: 6px; }
+  .book-foot {
+    font-family: 'DM Mono', monospace; font-size: 7px;
+    color: var(--muted); margin-top: 10px; letter-spacing: 1px;
+  }
+  .book-spine-label {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .book-spine-label span {
+    transform: rotate(-90deg); white-space: nowrap;
+    font-family: 'DM Mono', monospace; font-size: 7px;
+    color: var(--bg); letter-spacing: 2px; font-weight: 600;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex; align-items: center; gap: 16px; margin: 8px 0 40px;
+    opacity: 0.4;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--surf2);
+  }
+  .divider span {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 2px; color: var(--muted);
+  }
+
+  /* PARTES */
+  .partes { margin-bottom: 48px; }
+  .partes-title {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; color: var(--muted); text-transform: uppercase;
+    margin-bottom: 20px; text-align: center;
+  }
+  .parte-item {
+    background: var(--surf); border: 1px solid var(--surf2);
+    border-radius: 12px; padding: 24px; margin-bottom: 12px;
+    display: grid; grid-template-columns: 44px 1fr; gap: 16px;
+    align-items: start; transition: border-color 0.2s;
+  }
+  .parte-item:hover { border-color: rgba(201,168,76,0.25); }
+  .parte-num {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+  }
+  .parte-num.p1 { background: rgba(176,124,90,0.12); color: var(--clay); }
+  .parte-num.p2 { background: rgba(122,158,126,0.12); color: var(--sage); }
+  .parte-num.p3 { background: rgba(92,184,122,0.12); color: var(--green); }
+  .parte-label {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 2px; margin-bottom: 4px;
+  }
+  .parte-label.p1 { color: var(--clay); }
+  .parte-label.p2 { color: var(--sage); }
+  .parte-label.p3 { color: var(--green); }
+  .parte-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; margin-bottom: 8px;
+  }
+  .parte-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .caps-list { display: flex; flex-direction: column; gap: 4px; }
+  .cap-item {
+    display: flex; align-items: baseline; gap: 8px; font-size: 12px;
+  }
+  .cap-num {
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted);
+    min-width: 32px;
+  }
+  .cap-title { color: var(--cream); opacity: 0.8; }
+
+  /* PARA QUEM */
+  .for-whom { margin-bottom: 48px; }
+  .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .for-item {
+    background: var(--surf); border: 1px solid var(--surf2);
+    border-radius: 10px; padding: 16px; display: flex;
+    align-items: flex-start; gap: 10px;
+  }
+  .for-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .for-text { font-size: 13px; line-height: 1.5; color: var(--cream); opacity: 0.9; }
+
+  /* INCLUDES */
+  .includes { margin-bottom: 48px; }
+  .include-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--surf2);
+    font-size: 14px;
+  }
+  .include-item:last-child { border-bottom: none; }
+  .include-check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(92,184,122,0.1); display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .include-check svg { color: var(--green); }
+
+  /* DEPOIMENTOS */
+  .testimonials { margin-bottom: 48px; }
+  .testimonial {
+    background: var(--surf); border: 1px solid var(--surf2);
+    border-radius: 12px; padding: 24px; margin-bottom: 12px;
+    position: relative;
+  }
+  .testimonial::before {
+    content: '"';
+    font-family: 'Playfair Display', serif; font-size: 48px;
+    color: var(--gold); opacity: 0.2; position: absolute;
+    top: 12px; left: 20px; line-height: 1;
+  }
+  .testimonial-text {
+    font-size: 14px; line-height: 1.7; color: var(--cream);
+    opacity: 0.9; margin-bottom: 16px; padding-top: 16px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .testimonial-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--surf2); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .testimonial-name { font-size: 13px; font-weight: 600; }
+  .testimonial-role { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; margin-bottom: 8px; }
+
+  /* PREÇO */
+  .price-section {
+    background: var(--surf); border: 1px solid var(--surf2);
+    border-radius: 16px; overflow: hidden; margin-bottom: 32px;
+    position: relative;
+  }
+  .price-section::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--clay), var(--gold), var(--clay));
+  }
+  .price-header {
+    padding: 32px 36px 24px;
+    border-bottom: 1px solid var(--surf2);
+  }
+  .price-tag {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; color: var(--clay); margin-bottom: 16px;
+  }
+  .price-row {
+    display: flex; align-items: flex-end; gap: 16px; margin-bottom: 8px;
+  }
+  .price-original {
+    font-size: 15px; color: var(--muted);
+    text-decoration: line-through; margin-bottom: 4px;
+  }
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; color: var(--gold); line-height: 1;
+    font-weight: 900;
+  }
+  .price-main sup { font-size: 22px; }
+  .price-note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .price-badge {
+    background: rgba(92,184,122,0.12); color: var(--green);
+    font-size: 12px; font-weight: 500; padding: 5px 12px;
+    border-radius: 20px; display: inline-block; margin-top: 8px;
+  }
+  .price-body { padding: 24px 36px; }
+  .price-includes { list-style: none; margin-bottom: 24px; }
+  .price-includes li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; padding: 6px 0;
+    border-bottom: 1px solid var(--surf2);
+  }
+  .price-includes li:last-child { border-bottom: none; }
+  .tick { color: var(--green); font-weight: 700; font-size: 14px; }
+
+  /* BOTÃO */
+  .btn-buy {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--clay));
+    color: var(--bg); text-align: center; padding: 20px;
+    border-radius: 12px; font-size: 17px; font-weight: 700;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 16px; letter-spacing: 0.3px;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(201,168,76,0.4); }
+
+  /* GARANTIA */
+  .guarantee {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surf2); border-radius: 10px; padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .guarantee-icon { font-size: 28px; flex-shrink: 0; }
+  .guarantee-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .guarantee-text p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  .trust-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--muted);
+  }
+  .trust-item { display: flex; align-items: center; gap: 5px; }
+
+  /* FAQ */
+  .faq { margin-bottom: 48px; }
+  .faq-item {
+    border-bottom: 1px solid var(--surf2); padding: 16px 0;
+  }
+  .faq-q {
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; user-select: none;
+  }
+  .faq-q::after {
+    content: '+'; color: var(--gold); font-size: 20px;
+    flex-shrink: 0; transition: transform 0.2s; line-height: 1;
+  }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 13px; color: var(--muted); line-height: 1.7;
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 24px 0 48px;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--surf2);
+  }
+  footer a { color: var(--muted); text-decoration: underline; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; color: var(--muted); text-transform: uppercase;
+    margin-bottom: 20px; text-align: center;
+  }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(20px);  } to { opacity:1; transform:translateY(0); } }
+
+  @media (max-width: 540px) {
+    .hero { padding: 48px 0 36px; }
+    .for-grid { grid-template-columns: 1fr; }
+    .price-header, .price-body { padding: 24px 20px; }
+    .price-main { font-size: 42px; }
+    .trust-row { flex-direction: column; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Leggere <span>Método</span></div>
+    <a href="#comprar" class="nav-cta">Quero o guia →</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">📖 Guia Completo · 15 Capítulos · PDF</div>
+    <h1>O manual que faltava<em>para quem leva dinheiro a sério.</em></h1>
+    <p class="hero-sub">Psicologia do dinheiro, hábitos financeiros e construção de patrimônio — tudo em capítulos curtos, diretos e com exercícios práticos que você aplica ainda hoje.</p>
+
+    <!-- BOOK -->
+    <div class="book-wrap">
+      <div class="book">
+        <div class="book-cover">
+          <div class="book-spine-label"><span>LEGGERE MÉTODO</span></div>
+          <div class="book-inner">
+            <p class="book-label">LEGGERE</p>
+            <p class="book-title">MÉTODO</p>
+            <div class="book-divider"></div>
+            <p class="book-icons">🧠 ⚡ 🏦</p>
+            <p class="book-foot">ex-PwC · 15 CAPÍTULOS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTES -->
+  <div class="partes">
+    <p class="section-label">O que você vai aprender</p>
+
+    <div class="parte-item">
+      <div class="parte-num p1">01</div>
+      <div>
+        <p class="parte-label p1">PARTE 1 · 5 CAPÍTULOS</p>
+        <p class="parte-name">Psicologia do Dinheiro</p>
+        <p class="parte-desc">Antes de mudar seus números, você precisa entender o que acontece na sua cabeça — por que você gasta mais do que planeja e como mudar isso de verdade.</p>
+        <div class="caps-list">
+          <div class="cap-item"><span class="cap-num">Cap. 01</span><span class="cap-title">Por que você gasta mais do que planeja</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 02</span><span class="cap-title">O efeito invisível das emoções nas suas finanças</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 03</span><span class="cap-title">A armadilha da comparação social</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 04</span><span class="cap-title">Como o seu cérebro sabota suas metas</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 05</span><span class="cap-title">Reprogramando a sua relação com dinheiro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parte-item">
+      <div class="parte-num p2">02</div>
+      <div>
+        <p class="parte-label p2">PARTE 2 · 5 CAPÍTULOS</p>
+        <p class="parte-name">Hábitos Financeiros</p>
+        <p class="parte-desc">Saber não basta — o que transforma é o que você faz repetidamente sem pensar. O sistema de 15 minutos por semana que muda sua relação com dinheiro.</p>
+        <div class="caps-list">
+          <div class="cap-item"><span class="cap-num">Cap. 06</span><span class="cap-title">O sistema de 15 minutos por semana</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 07</span><span class="cap-title">Como criar um orçamento que você segue de verdade</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 08</span><span class="cap-title">Gastos invisíveis — o que te drena sem você ver</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 09</span><span class="cap-title">O poder do pagamento automático</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 10</span><span class="cap-title">Manter o hábito quando a vida complica</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parte-item">
+      <div class="parte-num p3">03</div>
+      <div>
+        <p class="parte-label p3">PARTE 3 · 5 CAPÍTULOS</p>
+        <p class="parte-name">Construir Patrimônio do Zero</p>
+        <p class="parte-desc">Você não precisa ganhar mais para começar. Precisa parar de adiar. Da reserva de emergência ao primeiro investimento — passo a passo.</p>
+        <div class="caps-list">
+          <div class="cap-item"><span class="cap-num">Cap. 11</span><span class="cap-title">A reserva que muda tudo</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 12</span><span class="cap-title">Sair das dívidas sem enlouquecer</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 13</span><span class="cap-title">Seu primeiro investimento</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 14</span><span class="cap-title">A regra dos 10% e o efeito do tempo</span></div>
+          <div class="cap-item"><span class="cap-num">Cap. 15</span><span class="cap-title">Construindo riqueza com renda comum</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- PARA QUEM -->
+  <div class="for-whom">
+    <p class="section-label">Este guia é para você se</p>
+    <div class="for-grid">
+      <div class="for-item">
+        <span class="for-icon">💸</span>
+        <p class="for-text">Seu salário some antes do fim do mês e você não sabe explicar para onde foi</p>
+      </div>
+      <div class="for-item">
+        <span class="for-icon">🔁</span>
+        <p class="for-text">Você já tentou orçamentos e abandonou porque era complicado demais</p>
+      </div>
+      <div class="for-item">
+        <span class="for-icon">😰</span>
+        <p class="for-text">Dinheiro te gera ansiedade e você evita olhar para o extrato bancário</p>
+      </div>
+      <div class="for-item">
+        <span class="for-icon">🏗️</span>
+        <p class="for-text">Quer construir patrimônio mas não sabe por onde começar com o que tem</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE INCLUI -->
+  <div class="includes">
+    <p class="section-label">O que está incluído</p>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      PDF completo com 15 capítulos — leitura fluida, sem enrolação
+    </div>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      Exercício prático ao final de cada capítulo — aplicação imediata
+    </div>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      Caixas de destaque com insights e sínteses de cada tema
+    </div>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      Compatível com o Leggere 30 — teoria + planilha que andam juntos
+    </div>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      Acesso vitalício com atualizações futuras inclusas
+    </div>
+    <div class="include-item">
+      <div class="include-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      Entregue por e-mail imediatamente após a compra
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- DEPOIMENTOS -->
+  <div class="testimonials">
+    <p class="section-label">O que dizem quem leu</p>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Finalmente um guia que explica o lado comportamental do dinheiro. Li em duas tardes e já implementei o sistema de 15 minutos. Pela primeira vez em anos eu sei para onde vai cada centavo.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👩</div>
+        <div>
+          <p class="testimonial-name">Ana Clara M.</p>
+          <p class="testimonial-role">Designer · São Paulo</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">O capítulo sobre vieses cognitivos mudou como eu penso sobre minhas finanças. Nunca tinha conectado psicologia com dinheiro dessa forma. O capítulo dos juros compostos me fez começar a investir na mesma semana.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👨</div>
+        <div>
+          <p class="testimonial-name">Rafael T.</p>
+          <p class="testimonial-role">Analista · Belo Horizonte</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREÇO -->
+  <div class="price-section" id="comprar">
+    <div class="price-header">
+      <p class="price-tag">LEGGERE MÉTODO · ACESSO VITALÍCIO</p>
+      <p class="price-original">De R$ 197</p>
+      <div class="price-row">
+        <p class="price-main"><sup>R$</sup>147</p>
+      </div>
+      <p class="price-note">Pagamento único · Sem mensalidade · Acesso imediato</p>
+      <span class="price-badge">Você economiza R$ 50</span>
+    </div>
+    <div class="price-body">
+      <ul class="price-includes">
+        <li><span class="tick">✓</span> PDF Leggere Método — 15 capítulos completos</li>
+        <li><span class="tick">✓</span> 15 exercícios práticos com aplicação imediata</li>
+        <li><span class="tick">✓</span> Teoria leve + prática em cada capítulo</li>
+        <li><span class="tick">✓</span> Compatível com o Leggere 30</li>
+        <li><span class="tick">✓</span> Acesso vitalício com atualizações inclusas</li>
+        <li><span class="tick">✓</span> Garantia incondicional de 7 dias</li>
+      </ul>
+
+      <a href="https://pay.cakto.com.br/aue5wtx_795166" class="btn-buy">
+        Quero o Leggere Método por R$ 147 →
+      </a>
+
+      <div class="guarantee">
+        <span class="guarantee-icon">🛡️</span>
+        <div class="guarantee-text">
+          <h4>Garantia incondicional de 7 dias</h4>
+          <p>Se por qualquer motivo o guia não atender às suas expectativas, devolvemos 100% do valor. Sem perguntas, sem burocracia.</p>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item">🔒 Compra segura</div>
+        <div class="trust-item">📧 Acesso imediato por e-mail</div>
+        <div class="trust-item">♾️ Acesso vitalício</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <p class="section-label">Perguntas frequentes</p>
+    <div class="faq-item">
+      <div class="faq-q">Como recebo o guia após a compra?</div>
+      <div class="faq-a">Imediatamente após a confirmação do pagamento, você recebe o PDF diretamente no e-mail cadastrado na compra. Sem espera.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Precisa ter o Leggere 30 para aproveitar o Método?</div>
+      <div class="faq-a">Não. O Leggere Método funciona de forma independente — é um guia completo por si só. Mas os dois juntos formam uma combinação poderosa: teoria no guia e prática na planilha.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Para quem é indicado?</div>
+      <div class="faq-a">Para qualquer pessoa que quer entender melhor a relação com dinheiro, criar hábitos financeiros sólidos e começar a construir patrimônio. Não é necessário ter conhecimento prévio em finanças.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Como funciona a garantia de 7 dias?</div>
+      <div class="faq-a">Se em até 7 dias após a compra o guia não atender às suas expectativas, basta entrar em contato e devolvemos 100% do valor. Sem perguntas e sem burocracia.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Leggere 30 · <a href="#">Política de Privacidade</a> · <a href="#">Termos de Uso</a></p>
+  <p style="margin-top: 6px;">Dúvidas? <a href="mailto:contato@leggere30.com">contato@leggere30.com</a></p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
